@@ -338,6 +338,7 @@ function renderSummary() {
     <div>📅 <strong>Duration:</strong> ${state.days} day${state.days > 1 ? 's' : ''}</div>
     <div>💰 <strong>Total:</strong> ${total} EGP (cash on delivery)</div>
     <div>🚚 <strong>Delivery:</strong> Within 24h · Cairo</div>
+    <div>🪪 <strong>Verification:</strong> Valid National ID required</div>
   `;
 }
 
@@ -347,12 +348,15 @@ document.getElementById('confirm-btn').addEventListener('click', async () => {
   const name    = document.getElementById('f-name').value.trim();
   const phone   = document.getElementById('f-phone').value.trim();
   const address = document.getElementById('f-address').value.trim();
+  const nationalId = document.getElementById('f-national-id').value.trim();
 
   let phoneErr = document.getElementById('phone-error');
   if (phoneErr) phoneErr.remove();
+  let nidErr = document.getElementById('nid-error');
+  if (nidErr) nidErr.remove();
 
-  if (!name || !phone || !address) {
-    ['f-name','f-phone','f-address'].forEach(id => {
+  if (!name || !phone || !address || !nationalId) {
+    ['f-name','f-phone','f-address','f-national-id'].forEach(id => {
       const el = document.getElementById(id);
       if (!el.value.trim()) { el.style.borderColor = '#ef4444'; shakeEl(el); }
     });
@@ -374,8 +378,23 @@ document.getElementById('confirm-btn').addEventListener('click', async () => {
     return;
   }
 
+  if (!/^\d{16}$/.test(nationalId)) {
+    const el = document.getElementById('f-national-id');
+    el.style.borderColor = '#ef4444';
+    shakeEl(el);
+    const err = document.createElement('div');
+    err.id = 'nid-error';
+    err.style.color = '#ef4444';
+    err.style.fontSize = '0.8rem';
+    err.style.marginTop = '-8px';
+    err.style.marginBottom = '12px';
+    err.textContent = 'Please enter a valid Egyptian National ID (16 digits)';
+    el.parentNode.insertBefore(err, el.nextSibling);
+    return;
+  }
+
   const total = state.price * state.days;
-  const message = `🎉 New Booking - HobbyGo\n\n🎯 Hobby: ${capitalize(state.hobby)}\n📦 Kit: ${state.kit}\n📅 Duration: ${state.days} days\n💰 Total: ${total} EGP\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n🚚 Delivery: Within 24h · Cairo\n💵 Payment: Cash on Delivery`;
+  const message = `🎉 New Booking - HobbyGo\n\n🎯 Hobby: ${capitalize(state.hobby)}\n📦 Kit: ${state.kit}\n📅 Duration: ${state.days} days\n💰 Total: ${total} EGP\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n🪪 National ID: ${nationalId}\n\n🚚 Delivery: Within 24h · Cairo\n💵 Payment: Cash on Delivery`;
   
   window.open('https://wa.me/201123015146?text=' + encodeURIComponent(message), '_blank');
 
@@ -388,6 +407,7 @@ document.getElementById('confirm-btn').addEventListener('click', async () => {
     name: name,
     phone: phone,
     address: address,
+    national_id: nationalId,
     timestamp: new Date().toISOString()
   });
 
@@ -414,7 +434,12 @@ document.getElementById('book-again-btn').addEventListener('click', () => {
   document.getElementById('f-name').value = '';
   document.getElementById('f-phone').value = '';
   document.getElementById('f-address').value = '';
-  ['f-name','f-phone','f-address'].forEach(id => document.getElementById(id).style.borderColor = '');
+  document.getElementById('f-national-id').value = '';
+  ['f-name','f-phone','f-address','f-national-id'].forEach(id => document.getElementById(id).style.borderColor = '');
+  let phoneErr = document.getElementById('phone-error');
+  if (phoneErr) phoneErr.remove();
+  let nidErr = document.getElementById('nid-error');
+  if (nidErr) nidErr.remove();
   Object.assign(state, { hobby: null, kit: null, price: 0, days: 0 });
   updateProgress(1);
   showPanel(1);
@@ -446,7 +471,7 @@ document.querySelectorAll('.kit-book-btn').forEach(btn => {
 });
 
 // ── INPUT: clear red border on focus ─────────────────────────────────────
-['f-name','f-phone','f-address'].forEach(id => {
+['f-name','f-phone','f-address','f-national-id'].forEach(id => {
   document.getElementById(id).addEventListener('focus', function() {
     this.style.borderColor = '';
   });
