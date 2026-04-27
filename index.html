@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="HobbyGo – Rent hobby kits for photography, music & fishing. Try before you buy. Fast delivery in Cairo."/>
+<title>HobbyGo – Try Any Hobby Before You Buy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="top-bar" id="top-bar">
+    <span>✨ New to HobbyGo? Get 20% off your first rental with code: <strong>FIRSTHOBBY</strong></span>
+    <button id="close-top-bar" aria-label="Close">&times;</button>
+  </div>
+  <div class="nav-inner">
+    <a href="#home" class="logo-wrap">
+      <span class="logo-text">Hobby<span>Go</span></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#why">Why HobbyGo</a></li>
+      <li><a href="#categories">Hobbies</a></li>
+      <li><a href="#kits">Kits</a></li>
+      <li><a href="#booking">Book Now</a></li>
+      <li><a href="#booking" class="nav-cta">Start Free</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="home" class="hero">
+  <div class="hero-bg">
+    <div class="aurora"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-noise"></div>
+    <canvas class="particles-canvas" id="particles"></canvas>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content" data-parallax="0.12">
+      <div class="hero-proof">🇪🇬 Trusted by 1,000+ creators & students across Egypt</div>
+      <div class="hero-badge">
+        <span class="badge-dot"></span> Now live in Cairo, Egypt
+      </div>
+      <h1>Try any hobby<br/><span class="gradient-text" id="typed-text">before you buy it</span></h1>
+      <p class="hero-sub">Rent complete hobby kits for photography, music & fishing. Delivered to your door in 24h. No risk, no commitment — just pure exploration.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn btn-primary pulse" id="hero-cta">
+          Start Your Experience
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#categories" class="btn btn-glass">Explore Hobbies</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-num" data-count="1000">0</span><span class="trust-label">Kits Rented</span></div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><span class="trust-num">24h</span><span class="trust-label">Delivery</span></div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><span class="trust-num">100%</span><span class="trust-label">Insured</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="glass-card gc1 float-1">
+        <div class="gc-emoji">📸</div>
+        <div class="gc-info"><strong>Photography Kit</strong><span>From 250 EGP/day</span></div>
+      </div>
+      <div class="glass-card gc2 float-2">
+        <div class="gc-emoji">🎸</div>
+        <div class="gc-info"><strong>Music Kit</strong><span>From 150 EGP/day</span></div>
+      </div>
+      <div class="glass-card gc3 float-3">
+        <div class="gc-emoji">🎣</div>
+        <div class="gc-info"><strong>Fishing Kit</strong><span>From 150 EGP/day</span></div>
+      </div>
+      <div class="hero-glow"></div>
+    </div>
+  </div>
+  <a href="#story" class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </a>
+</section>
+
+<div class="brands-marquee">
+  <div class="brands-track">
+    <div class="brand-item">Canon</div>
+    <div class="brand-item">Sony</div>
+    <div class="brand-item">Nikon</div>
+    <div class="brand-item">Yamaha</div>
+    <div class="brand-item">Fender</div>
+    <div class="brand-item">Shimano</div>
+    <div class="brand-item">Pioneer</div>
+    <!-- Duplicate for infinite scroll effect -->
+    <div class="brand-item">Canon</div>
+    <div class="brand-item">Sony</div>
+    <div class="brand-item">Nikon</div>
+    <div class="brand-item">Yamaha</div>
+    <div class="brand-item">Fender</div>
+    <div class="brand-item">Shimano</div>
+    <div class="brand-item">Pioneer</div>
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="tb-item">⭐⭐⭐⭐⭐ <span>4.9 / 5 rating</span></div>
+    <div class="tb-sep"></div>
+    <div class="tb-item">🚚 <span>24h delivery guaranteed</span></div>
+    <div class="tb-sep"></div>
+    <div class="tb-item">🛡️ <span>Full kit insurance</span></div>
+    <div class="tb-sep"></div>
+    <div class="tb-item">💵 <span>Cash on delivery</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM STORY -->
+<section id="story" class="section story-section">
+  <div class="container">
+    <div class="story-inner">
+      <div class="story-text" data-reveal>
+        <div class="section-tag">The Problem</div>
+        <h2>You shouldn't spend thousands<br/><span class="gradient-text">on a hobby you might quit</span></h2>
+        <p class="section-sub" style="margin-top:20px">
+          We've all been there. You get excited about a new hobby, buy expensive gear, 
+          use it twice… then it collects dust in a corner. A camera costs 15,000+ EGP. 
+          A guitar setup costs 5,000+ EGP. Fishing gear? Another 8,000+ EGP.
+        </p>
+        <div class="cost-comparison" data-reveal>
+          <div class="cost-box bad">
+            <div class="cost-label">Buying</div>
+            <div class="cost-value">15,000+ EGP</div>
+          </div>
+          <div class="cost-box good">
+            <div class="cost-label">Renting with HobbyGo</div>
+            <div class="cost-value">250 EGP/day</div>
+          </div>
+        </div>
+      </div>
+      <div class="story-visual" data-reveal>
+        <div class="story-card">
+          <div class="story-number">?!</div>
+          <div class="story-icon">💸</div>
+          <div class="story-title">The average Egyptian wastes</div>
+          <div class="story-desc">
+            <strong style="font-size:2rem;color:var(--coral);display:block;margin:12px 0">12,000 EGP</strong>
+            on hobby equipment they stop using within 3 months.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section how-section">
+  <div class="container" style="text-align:center">
+    <div class="section-tag" data-reveal>The Solution</div>
+    <h2 data-reveal>How HobbyGo <span class="gradient-text">works</span></h2>
+    <p class="section-sub" style="margin:0 auto 0" data-reveal>Three simple steps to start your next adventure — no commitment required.</p>
+    <div class="how-grid">
+      <div class="how-step" data-reveal>
+        <div class="how-num">1</div>
+        <h3>Choose Your Hobby</h3>
+        <p>Pick from photography, music, or fishing. More hobbies coming soon.</p>
+      </div>
+      <div class="how-step" data-reveal>
+        <div class="how-num">2</div>
+        <h3>Rent a Kit</h3>
+        <p>Select your kit and duration. We deliver to your door within 24 hours.</p>
+      </div>
+      <div class="how-step" data-reveal>
+        <div class="how-num">3</div>
+        <h3>Explore & Decide</h3>
+        <p>Try your hobby risk-free. When you're done, our courier will pick it up from your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE SECTION -->
+<section id="showcase" class="section showcase-section">
+  <div class="container">
+    <div class="showcase-inner">
+      <div class="showcase-text" data-reveal>
+        <div class="section-tag">Premium Experience</div>
+        <h2>Everything you need for<br/><span class="gradient-text">the perfect start</span></h2>
+        <p class="section-sub" style="margin-top:20px">
+          We don't just rent out gear. We provide complete, curated experiences designed by professionals so you can focus entirely on enjoying your new hobby.
+        </p>
+        
+        <div class="showcase-features">
+          <div class="s-feature">
+            <div class="s-feat-icon">✨</div>
+            <div>
+              <h4>Pro-Grade Gear</h4>
+              <p>Top-tier equipment from trusted brands.</p>
+            </div>
+          </div>
+          <div class="s-feature">
+            <div class="s-feat-icon">🛡️</div>
+            <div>
+              <h4>Fully Insured</h4>
+              <p>Zero liability for accidental damage.</p>
+            </div>
+          </div>
+          <div class="s-feature">
+            <div class="s-feat-icon">🚚</div>
+            <div>
+              <h4>Fast Delivery</h4>
+              <p>Delivered to your door in 24 hours.</p>
+            </div>
+          </div>
+          <div class="s-feature">
+            <div class="s-feat-icon">📚</div>
+            <div>
+              <h4>Beginner Guides</h4>
+              <p>Step-by-step tutorials included.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="s-tags">
+          <span class="s-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sanitized</span>
+          <span class="s-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Quality Checked</span>
+          <span class="s-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Support 24/7</span>
+        </div>
+      </div>
+      
+      <div class="showcase-visual" data-reveal>
+        <div class="sv-bg-glow"></div>
+        <div class="mock-app">
+          <div class="mock-header">
+            <div class="mock-dots"><span></span><span></span><span></span></div>
+            <div class="mock-title">HobbyGo Dashboard</div>
+          </div>
+          <div class="mock-body">
+            <div class="mock-greeting mock-anim" id="mock-anim-greeting">
+              <div class="mg-text">
+                <span>Current Rental</span>
+                <strong id="mock-kit-name">Photography Kit</strong>
+              </div>
+              <div class="mg-icon" id="mock-kit-icon">📸</div>
+            </div>
+            
+            <div class="mock-card">
+              <div class="mc-title">Time Remaining</div>
+              <div class="mc-value mock-anim" id="mock-anim-time"><span id="mock-time-val">48</span> <span class="mc-unit">Hours</span></div>
+              <div class="mc-progress-track">
+                <div class="mc-progress-fill"></div>
+              </div>
+            </div>
+            
+            <div class="mock-stats mock-anim" id="mock-anim-stats">
+              <div class="mock-stat">
+                <div class="ms-icon" id="mock-stat1-icon">🔋</div>
+                <div>
+                  <div class="ms-label" id="mock-stat1-label">Battery</div>
+                  <div class="ms-val" id="mock-stat1-val">100%</div>
+                </div>
+              </div>
+              <div class="mock-stat">
+                <div class="ms-icon" id="mock-stat2-icon">💾</div>
+                <div>
+                  <div class="ms-label" id="mock-stat2-label">Storage</div>
+                  <div class="ms-val" id="mock-stat2-val">64GB</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mock-chart">
+              <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+                <path id="mock-chart-fill" d="M0,30 L0,25 C20,25 30,10 50,15 C70,20 80,5 100,10 L100,30 Z" fill="url(#mock-grad)" opacity="0.5" style="transition: d 0.5s ease;"/>
+                <path id="mock-chart-line" d="M0,25 C20,25 30,10 50,15 C70,20 80,5 100,10" fill="none" stroke="var(--orange)" stroke-width="1.5" style="transition: d 0.5s ease;"/>
+                <defs>
+                  <linearGradient id="mock-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--orange)" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="var(--orange)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mock-float mf-1">
+          <div class="mf-icon">🛡️</div>
+          <div>
+            <div class="mf-title">Insurance Active</div>
+            <div class="mf-sub">Protected up to 15,000 EGP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="section why-section">
+  <div class="container">
+    <div class="section-tag" data-reveal>Why HobbyGo</div>
+    <h2 class="section-title" data-reveal>A smarter way to<br/><span class="gradient-text">discover hobbies</span></h2>
+    <div class="why-grid">
+      <div class="why-card" data-reveal>
+        <div class="why-icon-wrap icon-purple">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Zero Risk</h3>
+        <p>Full insurance on every kit. Try freely — if anything breaks, we've got it covered.</p>
+      </div>
+      <div class="why-card" data-reveal>
+        <div class="why-icon-wrap icon-coral">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Try Before You Invest</h3>
+        <p>Don't spend thousands on gear you might not use. Rent first, buy only if you love it.</p>
+      </div>
+      <div class="why-card" data-reveal>
+        <div class="why-icon-wrap icon-green">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <h3>Fast Home Delivery</h3>
+        <p>Your kit arrives within 24 hours across Cairo. Cash on delivery. No hassle.</p>
+      </div>
+      <div class="why-card" data-reveal>
+        <div class="why-icon-wrap icon-orange">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Affordable Prices</h3>
+        <p>Starting from just 150 EGP/day. Way cheaper than buying — way more fun.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews-section">
+  <div class="container">
+    <div class="section-tag" data-reveal>Real Reviews</div>
+    <h2 class="section-title" data-reveal>Loved by hobbyists<br/><span class="gradient-text">across Cairo</span></h2>
+    <div class="reviews-grid">
+      <div class="review-card" data-reveal>
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"رنتّ كاميرا للأول مرة وعملت صور حلوة جداً. الـ kit كان كامل ومجاش ناقص حاجة. التوصيل جه في أقل من 24 ساعة!"</p>
+        <div class="review-author"><div class="review-avatar">🧑</div><div><strong>Ahmed K.</strong><span>Photography Kit · Maadi</span></div></div>
+      </div>
+      <div class="review-card review-card-featured" data-reveal>
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"الفكرة دي غيّرت حياتي! جربت الجيتار لمدة أسبوع وعرفت إني بحبه. وبعدين اشتريت واحد خاص بيا. أنصح بيه 100%."</p>
+        <div class="review-author"><div class="review-avatar">👩</div><div><strong>Nour S.</strong><span>Guitar Kit · Heliopolis</span></div></div>
+      </div>
+      <div class="review-card" data-reveal>
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"جربت Pro Fishing Kit على النيل وكانت تجربة رهيبة. الـ kit احترافي جداً وكل حاجة موجودة. سأحجز تاني بالتأكيد."</p>
+        <div class="review-author"><div class="review-avatar">🧔</div><div><strong>Omar T.</strong><span>Pro Fishing Kit · Zamalek</span></div></div>
+      </div>
+    </div>
+    <div class="reviews-aggregate" data-reveal>
+      <div class="agg-score">4.9</div>
+      <div class="agg-info"><div class="agg-stars">⭐⭐⭐⭐⭐</div><div class="agg-label">Based on 120+ bookings in Cairo</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="categories" class="section categories-section">
+  <div class="container">
+    <div class="section-tag" data-reveal>Our Hobbies</div>
+    <h2 class="section-title" data-reveal>Choose your<br/><span class="gradient-text">next adventure</span></h2>
+    <div class="cat-grid">
+      <a href="#photography" class="cat-card cat-photo" data-reveal>
+        <div class="cat-bg-shape"></div>
+        <div class="cat-emoji">📸</div>
+        <h3>Photography</h3>
+        <p>Capture stunning moments with pro-grade cameras and lenses</p>
+        <div class="cat-price">From 250 EGP/day</div>
+        <div class="cat-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#music" class="cat-card cat-music" data-reveal>
+        <div class="cat-bg-shape"></div>
+        <div class="cat-emoji">🎸</div>
+        <h3>Music</h3>
+        <p>Start making music with guitars, keyboards, or a full production setup</p>
+        <div class="cat-price">From 150 EGP/day</div>
+        <div class="cat-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a href="#fishing" class="cat-card cat-fish" data-reveal>
+        <div class="cat-bg-shape"></div>
+        <div class="cat-emoji">🎣</div>
+        <h3>Fishing</h3>
+        <p>Everything you need for Nile or sea fishing — beginner to pro</p>
+        <div class="cat-price">From 150 EGP/day</div>
+        <div class="cat-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- KITS -->
+<section id="kits" class="section kits-section">
+  <div class="container">
+    <div id="photography" class="kit-group">
+      <div class="kit-group-header" data-reveal>
+        <div class="kit-group-icon">📸</div>
+        <div><div class="section-tag">Photography</div><h2 class="section-title">Camera <span class="gradient-text">Kits</span></h2><p class="kit-group-sub">Full insurance included · Setup support · Free delivery</p></div>
+      </div>
+      <div class="kits-row">
+        <div class="kit-card" data-reveal>
+          <div class="kit-card-top"><span class="kit-badge badge-popular">Most Popular</span><div class="kit-price-tag"><span>250</span> EGP/day</div></div>
+          <div class="kit-emoji">📷</div>
+          <h3 class="kit-name">Beginner Camera Kit</h3>
+          <ul class="kit-features"><li>Entry-level DSLR camera</li><li>18-55mm kit lens</li><li>Adjustable tripod</li><li>32GB memory card + bag</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="photography" data-kit="Beginner Camera Kit" data-price="250">Book This Kit</button>
+        </div>
+        <div class="kit-card kit-card-featured" data-reveal>
+          <div class="kit-card-top"><span class="kit-badge badge-pro">Pro Choice</span><div class="kit-price-tag featured-price"><span>300</span> EGP/day</div></div>
+          <div class="kit-emoji">📸</div>
+          <h3 class="kit-name">Main Camera Kit</h3>
+          <ul class="kit-features"><li>Full-frame mirrorless camera</li><li>24-70mm f/2.8 lens</li><li>Carbon-fiber tripod</li><li>64GB high-speed card + ND filters</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="photography" data-kit="Main Camera Kit" data-price="300">Book This Kit</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="music" class="kit-group">
+      <div class="kit-group-header" data-reveal>
+        <div class="kit-group-icon">🎸</div>
+        <div><div class="section-tag">Music</div><h2 class="section-title">Music <span class="gradient-text">Kits</span></h2><p class="kit-group-sub">Beginner guide included · All skill levels welcome</p></div>
+      </div>
+      <div class="kits-row kits-row-3">
+        <div class="kit-card" data-reveal>
+          <div class="kit-card-top"><div class="kit-price-tag"><span>150</span> EGP/day</div></div>
+          <div class="kit-emoji">🎸</div>
+          <h3 class="kit-name">Guitar Kit</h3>
+          <ul class="kit-features"><li>Acoustic / electric guitar</li><li>Tuner, picks & capo</li><li>Guitar strap + beginner guide</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="music" data-kit="Guitar Kit" data-price="150">Book This Kit</button>
+        </div>
+        <div class="kit-card kit-card-featured" data-reveal>
+          <div class="kit-card-top"><span class="kit-badge badge-music">Top Pick</span><div class="kit-price-tag featured-price"><span>200</span> EGP/day</div></div>
+          <div class="kit-emoji">🎹</div>
+          <h3 class="kit-name">Keyboard Kit</h3>
+          <ul class="kit-features"><li>61-key digital keyboard</li><li>Sustain pedal + stand</li><li>Learning app access included</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="music" data-kit="Keyboard Kit" data-price="200">Book This Kit</button>
+        </div>
+        <div class="kit-card" data-reveal>
+          <div class="kit-card-top"><div class="kit-price-tag"><span>250</span> EGP/day</div></div>
+          <div class="kit-emoji">🎛️</div>
+          <h3 class="kit-name">Production Kit</h3>
+          <ul class="kit-features"><li>MIDI controller + audio interface</li><li>Studio headphones</li><li>DAW software setup guide</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="music" data-kit="Production Kit" data-price="250">Book This Kit</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="fishing" class="kit-group">
+      <div class="kit-group-header" data-reveal>
+        <div class="kit-group-icon">🎣</div>
+        <div><div class="section-tag">Fishing</div><h2 class="section-title">Fishing <span class="gradient-text">Kits</span></h2><p class="kit-group-sub">Nile & sea fishing ready · Delivered to your spot</p></div>
+      </div>
+      <div class="kits-row kits-row-3">
+        <div class="kit-card" data-reveal>
+          <div class="kit-card-top"><div class="kit-price-tag"><span>150</span> EGP/day</div></div>
+          <div class="kit-emoji">🎣</div>
+          <h3 class="kit-name">Beginner Kit</h3>
+          <ul class="kit-features"><li>Rod & reel combo</li><li>Basic tackle set + bait box</li><li>Tips card for beginners</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="fishing" data-kit="Beginner Fishing Kit" data-price="150">Book This Kit</button>
+        </div>
+        <div class="kit-card kit-card-featured" data-reveal>
+          <div class="kit-card-top"><span class="kit-badge badge-fish">Best Value</span><div class="kit-price-tag featured-price"><span>200</span> EGP/day</div></div>
+          <div class="kit-emoji">🌊</div>
+          <h3 class="kit-name">Weekend Kit</h3>
+          <ul class="kit-features"><li>Medium spinning rod</li><li>Lure & hook variety pack</li><li>Tackle box + fishing chair</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="fishing" data-kit="Weekend Fishing Kit" data-price="200">Book This Kit</button>
+        </div>
+        <div class="kit-card" data-reveal>
+          <div class="kit-card-top"><div class="kit-price-tag"><span>300</span> EGP/day</div></div>
+          <div class="kit-emoji">🏆</div>
+          <h3 class="kit-name">Pro Kit</h3>
+          <ul class="kit-features"><li>Carbon-fiber pro rod + high-speed reel</li><li>Full lure collection</li><li>Cooler box + premium chair</li></ul>
+          <button class="btn btn-primary kit-book-btn" data-section="fishing" data-kit="Pro Fishing Kit" data-price="300">Book This Kit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="container">
+    <div class="cta-strip-inner" data-reveal>
+      <div><h2>Ready to try your first hobby?</h2><p>Join 1,000+ Egyptians already renting hobby kits. No risk, no commitment.</p></div>
+      <a href="#booking" class="btn btn-white">Start Your Experience →</a>
+    </div>
+  </div>
+</section>
+
+</section>
+
+<!-- FAQ SECTION -->
+<section id="faq" class="section faq-section">
+  <div class="container">
+    <div class="section-tag" data-reveal>Got Questions?</div>
+    <h2 class="section-title" data-reveal>Frequently Asked<br/><span class="gradient-text">Questions</span></h2>
+    <div class="faq-grid" data-reveal>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to pay a security deposit? <span class="faq-icon">+</span></div>
+        <div class="faq-a"><p style="padding-top:10px">No, we don't require large security deposits. We only verify your identity via phone and national ID upon delivery.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens if something breaks? <span class="faq-icon">+</span></div>
+        <div class="faq-a"><p style="padding-top:10px">All our kits include full insurance. If an accident happens, you are not liable for the damage. Just let us know and we'll replace it.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How does the return process work? <span class="faq-icon">+</span></div>
+        <div class="faq-a"><p style="padding-top:10px">It's completely hassle-free. On your last day, our courier will contact you to pick up the kit directly from your home at a time that suits you.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I buy the kit if I fall in love with the hobby? <span class="faq-icon">+</span></div>
+        <div class="faq-a"><p style="padding-top:10px">Absolutely! If you decide to buy your own equipment, we'll provide you with a discount code for our partner retailers.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="section booking-section">
+  <div class="container">
+    <div class="section-tag" data-reveal>Book a Kit</div>
+    <h2 class="section-title" data-reveal>Ready to start?<br/><span class="gradient-text">4 simple steps</span></h2>
+    <div class="booking-wrapper" data-reveal>
+      <div class="progress-bar-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-steps">
+          <div class="ps ps-active" id="ps-1"><div class="ps-dot"></div><span>Hobby</span></div>
+          <div class="ps" id="ps-2"><div class="ps-dot"></div><span>Kit</span></div>
+          <div class="ps" id="ps-3"><div class="ps-dot"></div><span>Duration</span></div>
+          <div class="ps" id="ps-4"><div class="ps-dot"></div><span>Confirm</span></div>
+        </div>
+      </div>
+      <div class="booking-body">
+        <div class="b-panel active" id="bp-1">
+          <h3 class="b-title">Which hobby do you want to try?</h3>
+          <div class="b-hobby-grid">
+            <button class="b-hobby-btn" data-hobby="photography" id="bh-photo"><span class="b-hobby-emoji">📸</span><span class="b-hobby-name">Photography</span></button>
+            <button class="b-hobby-btn" data-hobby="music" id="bh-music"><span class="b-hobby-emoji">🎸</span><span class="b-hobby-name">Music</span></button>
+            <button class="b-hobby-btn" data-hobby="fishing" id="bh-fish"><span class="b-hobby-emoji">🎣</span><span class="b-hobby-name">Fishing</span></button>
+          </div>
+          <div class="b-actions"><button class="btn btn-primary b-next" id="bn-1" disabled>Continue →</button></div>
+        </div>
+        <div class="b-panel" id="bp-2">
+          <h3 class="b-title">Choose your kit</h3>
+          <div class="b-kit-list" id="b-kit-list"></div>
+          <div class="b-actions b-actions-split"><button class="btn btn-outline" id="bb-2">← Back</button><button class="btn btn-primary b-next" id="bn-2" disabled>Continue →</button></div>
+        </div>
+        <div class="b-panel" id="bp-3">
+          <h3 class="b-title">How long do you need it?</h3>
+          <div class="b-duration-grid">
+            <button class="b-dur-btn" data-days="1">1 Day</button>
+            <button class="b-dur-btn" data-days="2">2 Days</button>
+            <button class="b-dur-btn" data-days="3">3 Days</button>
+            <button class="b-dur-btn" data-days="7">1 Week</button>
+          </div>
+          <div class="b-total" id="b-total"></div>
+          <div class="b-actions b-actions-split"><button class="btn btn-outline" id="bb-3">← Back</button><button class="btn btn-primary" id="bn-3" disabled>Continue →</button></div>
+        </div>
+        <div class="b-panel" id="bp-4">
+          <h3 class="b-title">Confirm your booking</h3>
+          <div class="b-summary" id="b-summary"></div>
+          <div class="b-form">
+            <input type="text" id="f-name" placeholder="Full name" />
+            <input type="tel" id="f-phone" placeholder="Phone number (01XXXXXXXXX)" />
+            <input type="text" id="f-address" placeholder="Delivery address in Cairo" />
+            <div class="b-delivery-note"><span>💵 Cash on Delivery</span><span>🚚 Arrives within 24 hours</span></div>
+            <button class="btn btn-primary btn-full" id="confirm-btn">Confirm Booking 🎉</button>
+          </div>
+          <button class="btn btn-outline" style="margin-top:12px" id="bb-4">← Back</button>
+        </div>
+        <div class="b-panel" id="bp-success">
+          <div class="b-success">
+            <div class="success-ring"><div class="success-emoji">🎉</div></div>
+            <h3>Booking Confirmed!</h3>
+            <p>We'll call you within 2 hours to arrange delivery.<br/>Get ready for your new adventure!</p>
+            <button class="btn btn-primary" id="book-again-btn">Book Another Kit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-glow"></div>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">Hobby<span>Go</span></div>
+        <p>Try any hobby before you buy it. Rent premium kits and discover what you love — risk free.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" class="social-btn">📷</a>
+          <a href="#" aria-label="Facebook" class="social-btn">📘</a>
+          <a href="#" aria-label="TikTok" class="social-btn">🎵</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Hobbies</h4><ul><li><a href="#photography">📸 Photography</a></li><li><a href="#music">🎸 Music</a></li><li><a href="#fishing">🎣 Fishing</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li>📞 01X XXXX XXXX</li><li>📍 Cairo, Egypt</li><li>⏰ 9 AM – 9 PM daily</li></ul></div>
+        <div class="footer-col"><h4>Delivery</h4><ul><li>🚚 24-hour delivery</li><li>💵 Cash on delivery</li><li>🛡️ Full kit insurance</li></ul></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 HobbyGo. All rights reserved. Cairo, Egypt.</p></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/201000000000" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
