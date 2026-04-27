@@ -536,3 +536,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// ── TYPED TEXT EFFECT ─────────────────────────────────────────────────────
+(function initTyped() {
+  const el = document.getElementById('typed-text');
+  if (!el) return;
+  const words = ["before you waste 15,000 EGP", "risk-free", "before you buy it"];
+  let i = 0;
+
+  function typeWord(word) {
+    let charIdx = 0;
+    el.textContent = '';
+    return new Promise(resolve => {
+      const typeInt = setInterval(() => {
+        el.textContent += word.charAt(charIdx);
+        charIdx++;
+        if (charIdx >= word.length) {
+          clearInterval(typeInt);
+          setTimeout(resolve, 2000);
+        }
+      }, 60);
+    });
+  }
+
+  function deleteWord() {
+    return new Promise(resolve => {
+      const delInt = setInterval(() => {
+        el.textContent = el.textContent.slice(0, -1);
+        if (el.textContent.length === 0) {
+          clearInterval(delInt);
+          setTimeout(resolve, 400);
+        }
+      }, 30);
+    });
+  }
+
+  async function loop() {
+    while (true) {
+      await typeWord(words[i]);
+      await deleteWord();
+      i = (i + 1) % words.length;
+    }
+  }
+  
+  el.textContent = '';
+  loop();
+})();

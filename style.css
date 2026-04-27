@@ -419,3 +419,26 @@ h2{font-size:1.7rem}
 .whatsapp-float { position: fixed; bottom: 24px; left: 24px; width: 60px; height: 60px; background: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4); z-index: 999; transition: all 0.3s ease; text-decoration: none; }
 .whatsapp-float:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6); color: white; }
 .whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
+
+/* --- SOCIAL PROOF UPGRADES --- */
+.verified-badge { font-size: 0.7rem; color: var(--green); font-weight: 600; margin-top: 4px; display: inline-block; background: rgba(62, 207, 180, 0.1); padding: 2px 8px; border-radius: 4px; }
+.reviews-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.reviews-aggregate-box { display: flex; align-items: center; justify-content: center; gap: 40px; padding: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--glass-border); max-width: 600px; margin: 40px auto 0; flex-wrap: wrap; }
+.agg-score-left { text-align: center; }
+.agg-score-number { font-size: 3.5rem; font-weight: 900; color: var(--p); line-height: 1; }
+.agg-bars { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
+.agg-bar-row { display: flex; align-items: center; gap: 12px; font-size: 0.8rem; color: var(--text2); font-weight: 600; }
+.agg-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.agg-bar-fill { height: 100%; background: var(--p); border-radius: 4px; }
+.mini-review { font-size: 0.82rem; font-style: italic; color: var(--text3); border-top: 1px solid var(--glass-border); padding-top: 12px; margin-top: auto; margin-bottom: 12px; line-height: 1.4; }
+.final-push-banner { background: var(--surface); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 32px 24px; text-align: center; max-width: 680px; margin: 0 auto 60px; box-shadow: var(--shadow-lg); }
+.fp-icon { font-size: 2rem; margin-bottom: 12px; }
+.fp-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.fp-quote { font-size: 1rem; color: var(--p); font-weight: 600; margin-bottom: 16px; font-style: italic; }
+.fp-cta { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 24px; }
+.fp-social { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.fp-avatars { display: flex; }
+.fp-avatars span { width: 32px; height: 32px; background: var(--dark3); border: 2px solid var(--surface); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; margin-left: -10px; z-index: 1; }
+.fp-avatars span:first-child { margin-left: 0; z-index: 3; }
+.fp-avatars span:nth-child(2) { z-index: 2; }
+.fp-text { font-size: 0.85rem; color: var(--text3); font-weight: 500; }
