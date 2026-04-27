@@ -343,10 +343,13 @@ function renderSummary() {
 
 document.getElementById('bb-4').addEventListener('click', () => { updateProgress(3); showPanel(3); });
 
-document.getElementById('confirm-btn').addEventListener('click', () => {
+document.getElementById('confirm-btn').addEventListener('click', async () => {
   const name    = document.getElementById('f-name').value.trim();
   const phone   = document.getElementById('f-phone').value.trim();
   const address = document.getElementById('f-address').value.trim();
+
+  let phoneErr = document.getElementById('phone-error');
+  if (phoneErr) phoneErr.remove();
 
   if (!name || !phone || !address) {
     ['f-name','f-phone','f-address'].forEach(id => {
@@ -356,9 +359,53 @@ document.getElementById('confirm-btn').addEventListener('click', () => {
     return;
   }
 
+  if (!/^01\d{9}$/.test(phone)) {
+    const el = document.getElementById('f-phone');
+    el.style.borderColor = '#ef4444';
+    shakeEl(el);
+    const err = document.createElement('div');
+    err.id = 'phone-error';
+    err.style.color = '#ef4444';
+    err.style.fontSize = '0.8rem';
+    err.style.marginTop = '-8px';
+    err.style.marginBottom = '12px';
+    err.textContent = 'Please enter a valid Egyptian mobile number (01123015146)';
+    el.parentNode.insertBefore(err, el.nextSibling);
+    return;
+  }
+
+  const total = state.price * state.days;
+  const message = `🎉 New Booking - HobbyGo\n\n🎯 Hobby: ${capitalize(state.hobby)}\n📦 Kit: ${state.kit}\n📅 Duration: ${state.days} days\n💰 Total: ${total} EGP\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📍 Address: ${address}\n\n🚚 Delivery: Within 24h · Cairo\n💵 Payment: Cash on Delivery`;
+  
+  window.open('https://wa.me/201123015146?text=' + encodeURIComponent(message), '_blank');
+
+  await sendToSheet({
+    hobby: capitalize(state.hobby),
+    kit: state.kit,
+    price: state.price,
+    days: state.days,
+    total: total,
+    name: name,
+    phone: phone,
+    address: address,
+    timestamp: new Date().toISOString()
+  });
+
   updateProgress('success');
   showPanel('success');
 });
+
+async function sendToSheet(data) {
+  try {
+    await fetch('https://hooks.zapier.com/hooks/catch/27391060/uvhb1j2/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch (error) {
+    console.error('Webhook failed:', error);
+  }
+}
 
 // Book Again
 document.getElementById('book-again-btn').addEventListener('click', () => {
@@ -518,6 +565,11 @@ document.addEventListener('DOMContentLoaded', () => {
     closeTopBar.addEventListener('click', () => {
       topBar.classList.add('hidden');
     });
+  }
+  
+  const waFloat = document.querySelector('.whatsapp-float');
+  if (waFloat) {
+    waFloat.href = 'https://wa.me/201123015146?text=' + encodeURIComponent('مرحبا HobbyGo ، عايز أحجز كيت');
   }
   
   // FAQ Accordion functionality
