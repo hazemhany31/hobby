@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HobbyGo Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#3ecfb4;--dark:#0b1120;--dark2:#0f1729;--dark3:#141d32;--surface:#131b2e;--surface2:#182236;--glass-border:rgba(255,255,255,.07);--text:#e2e8f0;--text2:rgba(226,232,240,.55);--text3:rgba(226,232,240,.32);--green:#34d399;--orange:#f0b35b;--coral:#e8758a;--red:#ef4444}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+.admin-header{background:var(--dark2);border-bottom:1px solid var(--glass-border);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.admin-logo{font-size:1.4rem;font-weight:900;color:#fff}
+.admin-logo span{color:var(--p)}
+.admin-badge{background:var(--p);color:var(--dark);padding:4px 12px;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.admin-nav{display:flex;gap:12px;align-items:center}
+.admin-nav a{color:var(--text2);font-size:.85rem;font-weight:500;text-decoration:none;padding:8px 16px;border-radius:10px;transition:all .25s}
+.admin-nav a:hover{color:#fff;background:var(--surface2)}
+.admin-container{max-width:1400px;margin:0 auto;padding:32px 28px}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--surface);border:1px solid var(--glass-border);border-radius:16px;padding:24px;text-align:center;transition:all .3s ease}
+.stat-card:hover{border-color:rgba(62,207,180,.2);transform:translateY(-2px)}
+.stat-num{font-size:2rem;font-weight:900;color:var(--p);line-height:1;margin-bottom:6px}
+.stat-label{font-size:.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.admin-title{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.admin-title .refresh-btn{background:var(--surface2);border:1px solid var(--glass-border);color:var(--text2);padding:8px 16px;border-radius:10px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .25s}
+.admin-title .refresh-btn:hover{border-color:var(--p);color:var(--p)}
+.admin-title .refresh-btn:disabled{opacity:.5;cursor:not-allowed}
+.admin-title .refresh-btn.spinning{animation:spin .8s linear infinite}
+.last-sync-info{font-size:.75rem;color:var(--text3);font-weight:500;margin-left:auto}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--glass-border);border-radius:16px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+thead{background:var(--dark3)}
+th{padding:14px 16px;text-align:left;font-weight:700;color:var(--text2);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--glass-border)}
+td{padding:14px 16px;border-bottom:1px solid var(--glass-border);color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:hover{background:rgba(62,207,180,.03)}
+.status-pill{padding:4px 12px;border-radius:50px;font-size:.72rem;font-weight:700;display:inline-block}
+.pill-pending{background:rgba(240,179,91,.12);color:var(--orange)}
+.pill-accepted{background:rgba(52,211,153,.12);color:var(--green)}
+.pill-rejected{background:rgba(239,68,68,.12);color:var(--red)}
+.action-btns{display:flex;gap:6px}
+.action-btn{padding:6px 14px;border-radius:8px;border:none;font-size:.75rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .25s;display:inline-flex;align-items:center;gap:4px}
+.action-btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.btn-accept{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.btn-accept:hover:not(:disabled){background:rgba(52,211,153,.25)}
+.btn-reject{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.15)}
+.btn-reject:hover:not(:disabled){background:rgba(239,68,68,.2)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-state .empty-icon{font-size:3rem;margin-bottom:16px}
+.empty-state p{font-size:.95rem;margin-bottom:8px}
+
+/* Loading spinner */
+.table-loading{text-align:center;padding:60px 20px}
+.admin-spinner{width:40px;height:40px;border:3px solid var(--glass-border);border-top:3px solid var(--p);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+.admin-spinner-sm{width:14px;height:14px;border:2px solid transparent;border-top:2px solid currentColor;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{color:var(--text3);font-size:.9rem}
+
+/* Toast notification */
+.admin-toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--glass-border);color:var(--text);padding:14px 20px;border-radius:12px;font-size:.88rem;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:9999;transform:translateY(100px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:8px}
+.admin-toast.show{transform:translateY(0);opacity:1}
+.admin-toast.toast-success{border-color:rgba(52,211,153,.3)}
+.admin-toast.toast-error{border-color:rgba(239,68,68,.3)}
+
+/* Booking date display */
+.booking-date{font-size:.72rem;color:var(--text3);margin-top:2px}
+
+/* Data source badge */
+.data-source{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;padding:3px 8px;border-radius:6px;font-weight:600}
+.data-cloud{background:rgba(62,207,180,.1);color:var(--p)}
+.data-local{background:rgba(240,179,91,.1);color:var(--orange)}
+
+/* Login overlay */
+.login-overlay{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--surface);border:1px solid var(--glass-border);border-radius:24px;padding:48px 40px;max-width:400px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-box h2{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px}
+.login-box p{color:var(--text3);font-size:.88rem;margin-bottom:24px}
+.login-box input{width:100%;padding:16px 18px;border-radius:14px;border:1px solid var(--glass-border);background:var(--dark3);font-size:.93rem;font-family:inherit;outline:none;color:var(--text);margin-bottom:16px;transition:all .25s;text-align:center;letter-spacing:2px}
+.login-box input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(62,207,180,.1)}
+.login-box button{width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--p),#5cc8e4);color:var(--dark);font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;transition:all .25s}
+.login-box button:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(62,207,180,.3)}
+.login-error{color:var(--red);font-size:.82rem;margin-top:8px;display:none}
+
+/* Row expanded details */
+.row-detail-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;padding:2px 6px;border-radius:4px;transition:all .2s}
+.row-detail-btn:hover{color:var(--p);background:rgba(62,207,180,.08)}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 16px;border-radius:8px;border:1px solid var(--glass-border);background:var(--surface);color:var(--text2);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .25s}
+.filter-btn:hover{border-color:var(--p);color:var(--p)}
+.filter-btn.active{background:rgba(62,207,180,.12);border-color:var(--p);color:var(--p)}
+
+@media(max-width:768px){
+  .admin-stats{grid-template-columns:repeat(2,1fr)}
+  .admin-header{flex-direction:column;gap:12px}
+  table{font-size:.78rem}
+  th,td{padding:10px 12px}
+  .filter-bar{gap:6px}
+  .filter-btn{padding:5px 10px;font-size:.72rem}
+  .last-sync-info{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div class="login-overlay" id="login-overlay">
+  <div class="login-box">
+    <h2>🔐 Admin Access</h2>
+    <p>Enter admin password to continue</p>
+    <input type="password" id="admin-password" placeholder="••••••••" autofocus />
+    <button id="login-btn">Enter Dashboard</button>
+    <div class="login-error" id="login-error">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<header class="admin-header" style="display:none" id="admin-header">
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="admin-logo">Hobby<span>Go</span></div>
+    <span class="admin-badge">Admin</span>
+    <span class="data-source" id="data-source-badge"></span>
+  </div>
+  <nav class="admin-nav">
+    <a href="index.html">← Back to Site</a>
+  </nav>
+</header>
+
+<main class="admin-container" style="display:none" id="admin-main">
+  <div class="admin-stats" id="admin-stats"></div>
+  
+  <!-- Filter bar -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="pending">⏳ Pending</button>
+    <button class="filter-btn" data-filter="accepted">✅ Accepted</button>
+    <button class="filter-btn" data-filter="rejected">❌ Rejected</button>
+  </div>
+  
+  <div class="admin-title">
+    <span>📋 All Bookings</span>
+    <button class="refresh-btn" id="refresh-btn" onclick="refreshBookings()">🔄 Refresh</button>
+    <span class="last-sync-info" id="last-sync-info"></span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Kit</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="bookings-body"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Toast -->
+<div class="admin-toast" id="admin-toast"></div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'hobbygo2025';
+
+// Google Sheets API (Apps Script Web App)
+const SHEETS_API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+// Zapier webhooks  
+const ZAPIER_BOOKING_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/27391060/uvhb1j2/';
+const ZAPIER_STATUS_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/27391060/uvhb1j2/';
+
+// State
+let allBookings = [];
+let currentFilter = 'all';
+let dataSource = 'local'; // 'cloud' or 'local'
+
+// ── LOGIN ──────────────────────────────────────────────────────────────
+document.getElementById('login-btn').addEventListener('click', attemptLogin);
+document.getElementById('admin-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') attemptLogin();
+});
+
+function attemptLogin() {
+  const pw = document.getElementById('admin-password').value;
+  if (pw === ADMIN_PASSWORD) {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('admin-header').style.display = 'flex';
+    document.getElementById('admin-main').style.display = 'block';
+    refreshBookings();
+  } else {
+    const err = document.getElementById('login-error');
+    err.style.display = 'block';
+    document.getElementById('admin-password').value = '';
+    document.getElementById('admin-password').style.borderColor = '#ef4444';
+    setTimeout(() => { err.style.display = 'none'; }, 3000);
+  }
+}
+
+// ── FETCH BOOKINGS ─────────────────────────────────────────────────────
+async function fetchBookings() {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(SHEETS_API_URL + '?action=getBookings', {
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error('Sheets API error');
+    const data = await res.json();
+    const bookings = Array.isArray(data) ? data : (data.bookings || data.data || []);
+    // Cache to localStorage
+    if (bookings.length > 0) {
+      const cached = {};
+      bookings.forEach(b => { if (b.bookingId) cached[b.bookingId] = b; });
+      localStorage.setItem('hg_bookings', JSON.stringify(cached));
+      localStorage.setItem('hg_bookings_lastSync', new Date().toISOString());
+    }
+    dataSource = 'cloud';
+    return bookings;
+  } catch (err) {
+    console.warn('[Admin] Cloud fetch failed, using localStorage:', err.message);
+    dataSource = 'local';
+    const cached = JSON.parse(localStorage.getItem('hg_bookings') || '{}');
+    return Object.values(cached);
+  }
+}
+
+// ── REFRESH BOOKINGS ───────────────────────────────────────────────────
+async function refreshBookings() {
+  const refreshBtn = document.getElementById('refresh-btn');
+  const tbody = document.getElementById('bookings-body');
+  
+  // Show loading
+  refreshBtn.disabled = true;
+  refreshBtn.innerHTML = '<span class="admin-spinner-sm"></span> Loading...';
+  tbody.innerHTML = `<tr><td colspan="8"><div class="table-loading"><div class="admin-spinner"></div><div class="loading-text">Fetching bookings from cloud...</div></div></td></tr>`;
+  
+  // Fetch data
+  allBookings = await fetchBookings();
+  
+  // Update data source badge
+  const badge = document.getElementById('data-source-badge');
+  if (dataSource === 'cloud') {
+    badge.className = 'data-source data-cloud';
+    badge.textContent = '☁️ Cloud Synced';
+  } else {
+    badge.className = 'data-source data-local';
+    badge.textContent = '💾 Local Data';
+  }
+  
+  // Update last sync
+  const lastSync = localStorage.getItem('hg_bookings_lastSync');
+  const syncInfo = document.getElementById('last-sync-info');
+  if (lastSync) {
+    syncInfo.textContent = '🕐 Last synced: ' + new Date(lastSync).toLocaleString('en-EG', { dateStyle: 'medium', timeStyle: 'short' });
+  }
+  
+  // Render
+  renderBookings();
+  
+  // Re-enable
+  refreshBtn.disabled = false;
+  refreshBtn.innerHTML = '🔄 Refresh';
+}
+
+// ── FILTER ─────────────────────────────────────────────────────────────
+document.getElementById('filter-bar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.filter;
+  renderBookings();
+});
+
+// ── RENDER BOOKINGS ────────────────────────────────────────────────────
+function renderBookings() {
+  const filtered = currentFilter === 'all' 
+    ? allBookings 
+    : allBookings.filter(b => b.status === currentFilter);
+  
+  const entries = filtered.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+  const tbody = document.getElementById('bookings-body');
+
+  // Stats (always show total stats, not filtered)
+  const total = allBookings.length;
+  const pending = allBookings.filter(b => b.status === 'pending').length;
+  const accepted = allBookings.filter(b => b.status === 'accepted').length;
+  const rejected = allBookings.filter(b => b.status === 'rejected').length;
+
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Total Bookings</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--orange)">${pending}</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${accepted}</div><div class="stat-label">Accepted</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--red)">${rejected}</div><div class="stat-label">Rejected</div></div>
+  `;
+
+  if (entries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📭</div><p>${currentFilter === 'all' ? 'No bookings yet' : 'No ' + currentFilter + ' bookings'}</p><p style="font-size:.82rem">Bookings will appear here when customers submit them</p></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = entries.map(b => {
+    const statusClass = b.status === 'accepted' ? 'pill-accepted' : b.status === 'rejected' ? 'pill-rejected' : 'pill-pending';
+    const statusLabel = b.status === 'accepted' ? '✅ Confirmed' : b.status === 'rejected' ? '❌ Rejected' : '⏳ Pending';
+    const isActionable = b.status === 'pending';
+    const dateStr = b.timestamp ? new Date(b.timestamp).toLocaleString('en-EG', { dateStyle: 'short', timeStyle: 'short' }) : '';
+    const lastUpdatedStr = b.lastUpdated ? new Date(b.lastUpdated).toLocaleString('en-EG', { dateStyle: 'short', timeStyle: 'short' }) : '';
+
+    return `<tr data-booking-id="${b.bookingId}">
+      <td><strong>${b.bookingId || '-'}</strong>${dateStr ? `<div class="booking-date">${dateStr}</div>` : ''}</td>
+      <td>${b.name || '-'}</td>
+      <td>${b.phone || '-'}</td>
+      <td>${b.kit || '-'}</td>
+      <td>${b.total ? Number(b.total).toLocaleString() + ' EGP' : '-'}</td>
+      <td>${b.paymentMethod || '-'}</td>
+      <td><span class="status-pill ${statusClass}">${statusLabel}</span>${lastUpdatedStr && b.status !== 'pending' ? `<div class="booking-date">Updated: ${lastUpdatedStr}</div>` : ''}</td>
+      <td>${isActionable ? `
+        <div class="action-btns">
+          <button class="action-btn btn-accept" id="accept-${b.bookingId}" onclick="handleAction('${b.bookingId}','accepted','${b.phone || ''}', this)">✅ Accept</button>
+          <button class="action-btn btn-reject" id="reject-${b.bookingId}" onclick="handleAction('${b.bookingId}','rejected','${b.phone || ''}', this)">❌ Reject</button>
+        </div>
+      ` : '<span style="color:var(--text3);font-size:.78rem">Done</span>'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── HANDLE ACCEPT / REJECT ─────────────────────────────────────────────
+async function handleAction(bookingId, newStatus, phone, btnEl) {
+  // Disable both buttons in the row
+  const row = btnEl.closest('tr');
+  const btns = row.querySelectorAll('.action-btn');
+  btns.forEach(b => { b.disabled = true; });
+  
+  // Show spinner on clicked button
+  const originalText = btnEl.innerHTML;
+  btnEl.innerHTML = `<span class="admin-spinner-sm"></span> ${newStatus === 'accepted' ? 'Accepting...' : 'Rejecting...'}`;
+
+  // 1. Update localStorage
+  const bookings = JSON.parse(localStorage.getItem('hg_bookings') || '{}');
+  if (bookings[bookingId]) {
+    bookings[bookingId].status = newStatus;
+    bookings[bookingId].lastUpdated = new Date().toISOString();
+    localStorage.setItem('hg_bookings', JSON.stringify(bookings));
+  }
+
+  // 2. Update in-memory
+  const booking = allBookings.find(b => b.bookingId === bookingId);
+  if (booking) {
+    booking.status = newStatus;
+    booking.lastUpdated = new Date().toISOString();
+  }
+
+  // 3. Send POST to Zapier webhook (updates Google Sheets)
+  let webhookSuccess = false;
+  try {
+    const res = await fetch(ZAPIER_STATUS_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        bookingId: bookingId,
+        status: newStatus,
+        lastUpdated: new Date().toISOString()
+      })
+    });
+    webhookSuccess = res.ok;
+  } catch (e) {
+    console.error('Webhook failed:', e);
+  }
+
+  // 4. Show toast notification
+  if (webhookSuccess) {
+    showToast(`✅ Booking ${bookingId} ${newStatus === 'accepted' ? 'accepted' : 'rejected'} — synced to Google Sheets`, 'success');
+  } else {
+    showToast(`⚠️ Booking ${bookingId} updated locally — cloud sync failed`, 'error');
+  }
+
+  // 5. WhatsApp auto-message
+  let msg = '';
+  if (newStatus === 'accepted') {
+    msg = `✅ Your booking is confirmed. Booking ID: ${bookingId}\n\nThank you for choosing HobbyGo! We'll deliver your kit soon.`;
+  } else {
+    msg = `❌ Your booking was rejected. Booking ID: ${bookingId}\n\nPlease contact support for more details.`;
+  }
+
+  const cleanPhone = (phone || '').replace(/\D/g, '');
+  const fullPhone = cleanPhone.startsWith('0') ? '2' + cleanPhone : cleanPhone;
+  if (fullPhone) {
+    window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // 6. Re-render table
+  renderBookings();
+}
+
+// ── TOAST NOTIFICATION ─────────────────────────────────────────────────
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('admin-toast');
+  toast.textContent = message;
+  toast.className = `admin-toast toast-${type} show`;
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
+// Start auto-refresh after login
+function startAutoRefresh() {
+  autoRefreshInterval = setInterval(async () => {
+    allBookings = await fetchBookings();
+    renderBookings();
+    const syncInfo = document.getElementById('last-sync-info');
+    const lastSync = localStorage.getItem('hg_bookings_lastSync');
+    if (lastSync && syncInfo) {
+      syncInfo.textContent = '🕐 Last synced: ' + new Date(lastSync).toLocaleString('en-EG', { dateStyle: 'medium', timeStyle: 'short' });
+    }
+  }, 30000);
+}
+
+// Patch attemptLogin to start auto-refresh
+const _origAttempt = attemptLogin;
+function attemptLoginPatched() {
+  const pw = document.getElementById('admin-password').value;
+  if (pw === ADMIN_PASSWORD) {
+    _origAttempt();
+    startAutoRefresh();
+  } else {
+    _origAttempt();
+  }
+}
+document.getElementById('login-btn').removeEventListener('click', attemptLogin);
+document.getElementById('login-btn').addEventListener('click', attemptLoginPatched);
+document.getElementById('admin-password').removeEventListener('keydown', null);
+document.getElementById('admin-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') attemptLoginPatched();
+});
+</script>
+</body>
+</html>
